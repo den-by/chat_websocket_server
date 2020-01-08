@@ -74,7 +74,7 @@ class Connection {
     }
     sendData(data) {
         const jsonData = JSON.stringify(data);
-        //const cryptoData = this.crypto.encryptRC2(jsonData, this.pass);
+        // const cryptoData = this.crypto(jsonData, this.pass);
         // console.log(cryptoData);
         this.ws.send(jsonData);
     }

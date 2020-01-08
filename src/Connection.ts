@@ -82,19 +82,19 @@ class Connection {
         }
     }
 
-    sendData(data: response) {
+    public sendData(data: response) {
         const jsonData = JSON.stringify(data);
-        //const cryptoData = this.crypto.encryptRC2(jsonData, this.pass);
-       // console.log(cryptoData);
+        // const cryptoData = this.crypto(jsonData, this.pass);
+        // console.log(cryptoData);
         this.ws.send(jsonData);
     }
 
-    newMessage(message: string) {
+    public newMessage(message: string) {
         const data: response = {responseType: responseType.newMessage, data: {text: message}};
         this.sendData(data);
     }
 
-    sendMessageList(count: any) {
+    public sendMessageList(count: any) {
         const data: response = {
             responseType: responseType.messageList,
             data: {messageList: this.serverData['messageList'].slice(-count)}
@@ -102,7 +102,7 @@ class Connection {
         this.sendData(data);
     }
 
-    sendUserList() {
+    public sendUserList() {
         const data: response = {
             responseType: responseType.userList,
             data: {userList: this.serverData['connectionList'].filter((val: any) => val.userName).map((val: any) => val.userName)}
