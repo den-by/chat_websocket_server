@@ -34,15 +34,16 @@ class Connection {
         console.log(data);
         let request;
         let decryptData;
-        // try {
-        debugger;
-        decryptData = this.crypto.decryptRC2(data, this.pass);
-        console.log(decryptData);
-        request = JSON.parse(decryptData);
-        // } catch (e) {
-        console.log('PassError');
-        // return;
-        // }
+        try {
+            debugger;
+            decryptData = this.crypto.decryptRC2(data, this.pass);
+            console.log(decryptData);
+            request = JSON.parse(decryptData);
+        }
+        catch (e) {
+            console.log('PassError');
+            return;
+        }
         let message;
         switch (+request.requestType) {
             case requestType.login:

@@ -48,15 +48,15 @@ class Connection {
         console.log(data);
         let request: request;
         let decryptData;
-        // try {
+        try {
             debugger
             decryptData = this.crypto.decryptRC2(data, this.pass);
             console.log(decryptData);
             request = JSON.parse(decryptData);
-        // } catch (e) {
+        } catch (e) {
             console.log('PassError');
-            // return;
-        // }
+            return;
+        }
         let message :string;
         switch (+request.requestType) {
             case requestType.login:
