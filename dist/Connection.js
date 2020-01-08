@@ -69,23 +69,27 @@ class Connection {
                 break;
         }
     }
+    sendData(data) {
+        const jsonData = JSON.stringify(data);
+        this.ws.send(jsonData);
+    }
     newMessage(message) {
         const data = { responseType: responseType.newMessage, data: { text: message } };
-        this.ws.send(JSON.stringify(data));
+        this.sendData(data);
     }
     sendMessageList(count) {
         const data = {
             responseType: responseType.messageList,
             data: { messageList: this.serverData['messageList'].slice(-count) }
         };
-        this.ws.send(JSON.stringify(data));
+        this.sendData(data);
     }
     sendUserList() {
         const data = {
             responseType: responseType.userList,
             data: { userList: this.serverData['connectionList'].filter((val) => val.userName).map((val) => val.userName) }
         };
-        this.ws.send(JSON.stringify(data));
+        this.sendData(data);
     }
 }
 exports.default = Connection;
