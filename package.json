@@ -1,10 +1,11 @@
 {
-  "name": "ts_webpack",
+  "name": "webpack_chat",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --open --watch",
+    "dev": "webpack --mode development",
+    "build:backend": "tsc",
     "build": "webpack --mode production"
   },
   "author": "",

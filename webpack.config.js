@@ -18,7 +18,7 @@ module.exports = {
 
     output: {
         path: paths.dist,  // путь для результатов сборки
-        filename: '[name].bundle.js'  // название итогового бандла, получится dist/app.bundle.js
+        filename: 'server.js'  // название итогового бандла, получится dist/app.bundle.js
     },
 
     resolve: {

@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5", // компилируем ts код в js код версии ES5
-    "module": "esnext" // для поддержки динамического импорта модулей
-  }
+    "target": "ES2018",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["./src"],
+  "exclude": ["./src/web/frontend"]
 }
