@@ -1,6 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const RC2Crypto = require('./RC2Crypto');
+const RC2Crypto_1 = __importDefault(require("./RC2Crypto"));
 var requestType;
 (function (requestType) {
     requestType[requestType["login"] = 0] = "login";
@@ -28,7 +31,7 @@ class Connection {
         ws.on('message', (data) => this.onMessage(data));
         this.sendMessageList(10);
         this.sendUserList();
-        this.crypto = new RC2Crypto.default();
+        this.crypto = new RC2Crypto_1.default();
     }
     onMessage(data) {
         console.log(data);
@@ -71,6 +74,8 @@ class Connection {
     }
     sendData(data) {
         const jsonData = JSON.stringify(data);
+        //const cryptoData = this.crypto.encryptRC2(jsonData, this.pass);
+        // console.log(cryptoData);
         this.ws.send(jsonData);
     }
     newMessage(message) {

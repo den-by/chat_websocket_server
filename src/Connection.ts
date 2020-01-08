@@ -1,4 +1,4 @@
-const RC2Crypto = require('./RC2Crypto');
+import RC2Crypto from "./RC2Crypto";
 
 interface request {
     requestType: requestType;
@@ -41,7 +41,7 @@ class Connection {
         ws.on('message', (data: any) => this.onMessage(data));
         this.sendMessageList(10);
         this.sendUserList();
-        this.crypto = new RC2Crypto.default();
+        this.crypto = new RC2Crypto();
     }
 
     public onMessage(data: any): void {
@@ -84,6 +84,8 @@ class Connection {
 
     sendData(data: response) {
         const jsonData = JSON.stringify(data);
+        //const cryptoData = this.crypto.encryptRC2(jsonData, this.pass);
+       // console.log(cryptoData);
         this.ws.send(jsonData);
     }
 
