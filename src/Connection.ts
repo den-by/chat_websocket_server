@@ -33,7 +33,7 @@ class Connection {
     private serverData: any;
     public userName: string | undefined = undefined;
     private pass = 'test';
-    private crypto: any;
+   // private crypto: any;
 
     constructor(ws: any, serverData: any) {
         this.ws = ws;
@@ -41,7 +41,7 @@ class Connection {
         ws.on('message', (data: any) => this.onMessage(data));
         this.sendMessageList(10);
         this.sendUserList();
-        this.crypto = new RC2Crypto();
+       // this.crypto = new RC2Crypto();
     }
 
     public onMessage(data: any): void {
@@ -50,7 +50,7 @@ class Connection {
         let decryptData;
         try {
             debugger
-            decryptData = this.crypto.decryptRC2(data, this.pass);
+            decryptData = RC2Crypto.decryptRC2(data, this.pass);
             console.log(decryptData);
             request = JSON.parse(decryptData);
         } catch (e) {

@@ -7,7 +7,7 @@ class RC2Crypto {
         return cipherText2;
         // return 'dsf';
     }
-    decryptRC2(data, password) {
+    static decryptRC2(data, password) {
         let bytes = CryptoJS.default.RC2.decrypt(data, password);
         let plaintext = bytes.toString(CryptoJS.default.enc.Utf8);
         return plaintext;

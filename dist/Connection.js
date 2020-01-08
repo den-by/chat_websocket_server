@@ -23,6 +23,7 @@ var responseType;
     responseType[responseType["loginSuccessfully"] = 6] = "loginSuccessfully";
 })(responseType || (responseType = {}));
 class Connection {
+    // private crypto: any;
     constructor(ws, serverData) {
         this.userName = undefined;
         this.pass = 'test';
@@ -31,7 +32,7 @@ class Connection {
         ws.on('message', (data) => this.onMessage(data));
         this.sendMessageList(10);
         this.sendUserList();
-        this.crypto = new RC2Crypto_1.default();
+        // this.crypto = new RC2Crypto();
     }
     onMessage(data) {
         console.log(data);
@@ -39,7 +40,7 @@ class Connection {
         let decryptData;
         try {
             debugger;
-            decryptData = this.crypto.decryptRC2(data, this.pass);
+            decryptData = RC2Crypto_1.default.decryptRC2(data, this.pass);
             console.log(decryptData);
             request = JSON.parse(decryptData);
         }
