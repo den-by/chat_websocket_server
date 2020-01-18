@@ -1,32 +1,19 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const RC2Crypto_1 = __importDefault(require("./RC2Crypto"));
 var requestType;
 (function (requestType) {
     requestType[requestType["login"] = 0] = "login";
     requestType[requestType["message"] = 1] = "message";
-    requestType[requestType["getUsers"] = 2] = "getUsers";
-    requestType[requestType["logOut"] = 3] = "logOut";
-    requestType[requestType["getMessages"] = 4] = "getMessages";
 })(requestType || (requestType = {}));
 var responseType;
 (function (responseType) {
     responseType[responseType["newMessage"] = 0] = "newMessage";
-    responseType[responseType["userConnected"] = 1] = "userConnected";
-    responseType[responseType["userDisconnected"] = 2] = "userDisconnected";
     responseType[responseType["userList"] = 3] = "userList";
     responseType[responseType["messageList"] = 4] = "messageList";
-    responseType[responseType["serverKick"] = 5] = "serverKick";
-    responseType[responseType["loginSuccessfully"] = 6] = "loginSuccessfully";
 })(responseType || (responseType = {}));
 class Connection {
-    // private crypto: any;
     constructor(ws, serverData) {
         this.userName = undefined;
-        this.pass = 'test';
         this.ws = ws;
         this.serverData = serverData;
         ws.on('message', (data) => this.onMessage(data));
@@ -37,15 +24,11 @@ class Connection {
     onMessage(data) {
         console.log(data);
         let request;
-        let decryptData;
         try {
-            debugger;
-            decryptData = RC2Crypto_1.default.decryptRC2(data, this.pass);
-            console.log(decryptData);
-            request = JSON.parse(decryptData);
+            request = JSON.parse(data);
         }
         catch (e) {
-            console.log('PassError');
+            console.log('Parse_Error');
             return;
         }
         let message;
@@ -75,8 +58,6 @@ class Connection {
     }
     sendData(data) {
         const jsonData = JSON.stringify(data);
-        // const cryptoData = this.crypto(jsonData, this.pass);
-        // console.log(cryptoData);
         this.ws.send(jsonData);
     }
     newMessage(message) {

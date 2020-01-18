@@ -1,5 +1,3 @@
-import RC2Crypto from "./RC2Crypto";
-
 interface request {
     requestType: requestType;
     data: { name?: string, message?: string, text?: string }
@@ -8,9 +6,6 @@ interface request {
 enum requestType {
     login = 0,
     message = 1,
-    getUsers = 2,
-    logOut = 3,
-    getMessages = 4,
 }
 
 interface response {
@@ -20,20 +15,14 @@ interface response {
 
 enum responseType {
     newMessage = 0,
-    userConnected = 1,
-    userDisconnected = 2,
     userList = 3,
     messageList = 4,
-    serverKick = 5,
-    loginSuccessfully = 6
 }
 
 class Connection {
     private ws: any;
     private serverData: any;
     public userName: string | undefined = undefined;
-    private pass = 'test';
-   // private crypto: any;
 
     constructor(ws: any, serverData: any) {
         this.ws = ws;
@@ -47,14 +36,10 @@ class Connection {
     public onMessage(data: any): void {
         console.log(data);
         let request: request;
-        let decryptData;
         try {
-            debugger
-            decryptData = RC2Crypto.decryptRC2(data, this.pass);
-            console.log(decryptData);
-            request = JSON.parse(decryptData);
+            request = JSON.parse(data);
         } catch (e) {
-            console.log('PassError');
+            console.log('Parse_Error');
             return;
         }
         let message: string;
@@ -84,8 +69,6 @@ class Connection {
 
     public sendData(data: response) {
         const jsonData = JSON.stringify(data);
-        // const cryptoData = this.crypto(jsonData, this.pass);
-        // console.log(cryptoData);
         this.ws.send(jsonData);
     }
 
